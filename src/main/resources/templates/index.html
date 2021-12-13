@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServerB</title>
+</head>
+<body>
+<h2>Greetings app SERVER B</h2>
+
+<form method="post" action="/sendPostGreeting">
+  <input type="submit" value="Send greeting">
+</form>
+
+<p>Answer: </p>
+<h3 th:text="${greeting}"></h3>
+
+
+<form method="get" action="/getUsers">
+  <input type="submit" value="get Users">
+</form>
+
+</body>
+</html>
