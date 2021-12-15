@@ -1,23 +1,29 @@
 package com.example.serverb.controllers;
 
 import com.example.serverb.entities.Request;
+import com.example.serverb.entities.User;
 import com.example.serverb.services.RequestService;
+import com.example.serverb.services.UserService;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
+
 @RestController
-@RequestMapping("/requests")
 public class RequestController {
 
     RequestService requestService;
+    UserService userService;
+    Map<String,String> newRequests = new HashMap<>();
 
-    public RequestController(RequestService requestService){
+    public RequestController(RequestService requestService,UserService userService){
         this.requestService = requestService;
+        this.userService = userService;
     }
 
     @GetMapping("/all")
@@ -48,4 +54,31 @@ public class RequestController {
     }
 
 
+
+    @PostMapping("/friendship")
+    public ResponseEntity<String> postGreeting(@RequestBody Map<String,String> req) {
+        //System.out.println("request: " + req.get("request"));
+        String friendhipRequest = req.get("request");
+        String[] requestDetails = friendhipRequest.split("\\s+");
+        // Checking the email address if exists in our database.
+        User user = userService.findUserByEmail(requestDetails[4]);
+        String emailA = requestDetails[1];
+
+
+        if(user!= null){
+            // create request in DB
+            Request rq = new Request(user, emailA);
+            requestService.saveRequest(rq);
+            return ResponseEntity.ok("User exists"+req.get("request")+" On "+new Date());
+
+
+        }
+
+
+        //System.out.println(friendhipRequest);
+        newRequests.put(req.get("request"),"pending");
+
+        return ResponseEntity.ok("Request received from "+req.get("request")+" On "+new Date());
+
+    }
 }
