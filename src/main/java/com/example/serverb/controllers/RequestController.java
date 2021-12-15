@@ -8,6 +8,7 @@ import com.example.serverb.services.RequestService;
 import com.example.serverb.services.UserService;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 
 @RestController
+@Controller
 public class RequestController {
 
     RequestService requestService;
@@ -56,16 +58,7 @@ public class RequestController {
         response.put("request deleted", Boolean.TRUE);
         return response;
     }
-@GetMapping("/acceptRequest/{currentId}/{requestId}")
-public String acceptRequest(@PathVariable int requestId,@PathVariable int currentId){
 
-        //FriendList fl = new FriendList()
-        //fs.saveInFriendList
-    System.out.println(requestId+"   "+currentId);
-
-        //requestService.deleteRequest(requestService.findRequestById(requestId).orElseThrow());
-return "redirect:/index";
-}
 
 
 
