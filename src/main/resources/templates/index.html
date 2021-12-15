@@ -3,22 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ServerB</title>
+  <title>ServerA</title>
 </head>
 <body>
-<h2>Greetings app SERVER B</h2>
+<h2>Greetings app SERVER A</h2>
+<h2 id="cid" th:text=" ${currentId}"></h2>
+<h1 id="email" th:text="${currentEmail}"> </h1>
 
-<form method="post" action="/sendPostGreeting">
-  <input type="submit" value="Send greeting">
+
+<form method="post" action="/sendFriendRequest">
+  <input type="text" name="f_email" placeholder="Enter friends email">
+  <input type="text" id="currentemail" name="currentemail" hidden>
+  <input type="text" id="userId" name="userid" hidden>
+  <button style="float: left" type="submit" class="btn btn-primary"value="user">Submit</button>
+
 </form>
 
-<p>Answer: </p>
-<h3 th:text="${greeting}"></h3>
 
 
-<form method="get" action="/getUsers">
-  <input type="submit" value="get Users">
-</form>
+<script>
+  const currentEmail = document.querySelector("#email").innerText;
+  const emailInput = document.querySelector("#currentemail");
+  emailInput.value = currentEmail;
+
+  const userid = document.querySelector("#cid").innerText;
+  const idInput = document.querySelector("#userId");
+  idInput.value = userid;
+
+</script>
 
 </body>
 </html>

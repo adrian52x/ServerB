@@ -32,8 +32,8 @@ public class DataSetup implements CommandLineRunner {
         User u3 = userRepository.save(new User("Gigolo","Celio","g@gmail.com"));
         User u4 = userRepository.save(new User("Henrik","Vandam","h@gmail.com"));
 
-        requestRepository.save(new Request(u1,"g@gmail.com"));
-        requestRepository.save(new Request(u1,"h@gmail.com"));
+        //requestRepository.save(new Request(u1,"g@gmail.com"));
+        //requestRepository.save(new Request(u1,"h@gmail.com"));
 
 
 
