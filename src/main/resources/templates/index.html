@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ServerA</title>
+  <title>ServerB</title>
+
+  <style>
+
+    #showTables td {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 8px;
+      color: #618186;
+      font-weight: bold;
+    }
+
+    .btn-info{
+      background-color: dodgerblue;
+    }
+    .btn-danger{
+      background-color: red;
+    }
+  </style>
+
 </head>
 <body>
-<h2>Greetings app SERVER A</h2>
+<h2>SERVER B</h2>
 <h2 id="cid" th:text=" ${currentId}"></h2>
 <h1 id="email" th:text="${currentEmail}"> </h1>
 
@@ -18,6 +36,36 @@
   <button style="float: left" type="submit" class="btn btn-primary"value="user">Submit</button>
 
 </form>
+
+
+
+<div class="card" style="width: 60rem;">
+  <div class="card-header">
+    <h2 >Your incoming friendship requests!</h2>
+  </div>
+  <table id="showTables" class="card-table table" style="color:black">
+    <thead>
+    <tr>
+      <th >Email</th>
+      <th >Status</th>
+      <th >Action</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Request :  ${myRequestList}">
+      <b><td th:text="${Request.getForeignUser()}"></td></b>
+      <td th:text="${Request.getStatus()}"></td>
+      <td><button class="btn btn-info"
+             th:href="@{/}">Accept</button></td>
+      <td><button class="btn btn-danger"
+             th:href="@{/}">Reject</button></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
 
 
 

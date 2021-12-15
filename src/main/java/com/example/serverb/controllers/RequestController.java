@@ -55,6 +55,7 @@ public class RequestController {
 
 
 
+
     @PostMapping("/friendship")
     public ResponseEntity<String> postGreeting(@RequestBody Map<String,String> req) {
         //System.out.println("request: " + req.get("request"));
