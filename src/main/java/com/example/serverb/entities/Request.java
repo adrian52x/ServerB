@@ -20,7 +20,7 @@ public class Request {
     @ManyToOne
     private User user; // homeUser
 
-    private String foreignUser; //foreingUser email
+    private String foreignUser; //foreignUser email
 
     private String status = "pending";
 

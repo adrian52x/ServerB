@@ -1,6 +1,7 @@
 package com.example.serverb.repos;
 
 import com.example.serverb.entities.Request;
+import com.example.serverb.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,5 @@ public interface RequestRepository extends CrudRepository<Request,Integer> {
     List<Request> findRequestByUser_Id(int userId);
     Optional<Request> findRequestById(int id);
     Request deleteRequestById(int id);
+    Request findRequestByUserAndForeignUser(User user, String foreignUser);
 }

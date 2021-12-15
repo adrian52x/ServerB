@@ -69,11 +69,15 @@ public class RequestController {
             // create request in DB
             Request rq = new Request(user, foreignEmail);
 
-            requestService.saveRequest(rq);
-            return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
-        }else{
-            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
+            if(requestService.findRequestByUserAndForeignEmail(user,foreignEmail)==null){
+                requestService.saveRequest(rq);
+                return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
+            }
+
+
         }
+            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
+
 
 
         //System.out.println(friendhipRequest);

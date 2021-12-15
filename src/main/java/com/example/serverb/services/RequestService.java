@@ -1,6 +1,7 @@
 package com.example.serverb.services;
 
 import com.example.serverb.entities.Request;
+import com.example.serverb.entities.User;
 import com.example.serverb.repos.RequestRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,9 @@ public class RequestService {
 
     public void deleteRequest(Request request){
         requestRepository.delete(request);
+    }
+
+    public Request findRequestByUserAndForeignEmail(User user, String foreignUser){
+        return requestRepository.findRequestByUserAndForeignUser(user,foreignUser);
     }
 }
