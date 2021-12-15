@@ -62,23 +62,24 @@ public class RequestController {
         String[] requestDetails = friendhipRequest.split("\\s+");
         // Checking the email address if exists in our database.
         User user = userService.findUserByEmail(requestDetails[4]);
-        String emailA = requestDetails[1];
+        String foreignEmail = requestDetails[1];
 
 
         if(user!= null){
             // create request in DB
-            Request rq = new Request(user, emailA);
+            Request rq = new Request(user, foreignEmail);
+
             requestService.saveRequest(rq);
-            return ResponseEntity.ok("User exists"+req.get("request")+" On "+new Date());
-
-
+            return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
+        }else{
+            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
         }
 
 
         //System.out.println(friendhipRequest);
-        newRequests.put(req.get("request"),"pending");
+        //newRequests.put(req.get("request"),"pending");
 
-        return ResponseEntity.ok("Request received from "+req.get("request")+" On "+new Date());
+        //return ResponseEntity.ok("Request received from "+req.get("request")+" On "+new Date());
 
     }
 }
