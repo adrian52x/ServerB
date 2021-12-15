@@ -18,9 +18,9 @@ public class FriendList {
     private int id;
 
     @ManyToOne
-    private User user;
+    private User user;  // homeUser
 
-    private int foreignUserId;
+    private int foreignUserId; // foreignUser
     private String foreignUserHost;  // IP of where foreignUser comes from
 
 

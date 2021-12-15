@@ -18,16 +18,16 @@ public class Request {
     private int id;
 
     @ManyToOne
-    private User user; // Sender
+    private User user; // homeUser
 
-    private String receiver;
+    private String foreignUser; //foreingUser email
 
     private String status = "pending";
 
 
-    public Request(User user, String receiver){
+    public Request(User user, String foreignUser){
         this.user = user;
-        this.receiver = receiver;
+        this.foreignUser = foreignUser;
     }
 
 }
