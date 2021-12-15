@@ -27,10 +27,10 @@ public class DataSetup implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User u1 = userRepository.save(new User("Eva","Pedersen","e@gmail.com"));
-        User u2 = userRepository.save(new User("Frank","Luft","f@gmail.com"));
-        User u3 = userRepository.save(new User("Gigolo","Celio","g@gmail.com"));
-     User u4 = userRepository.save(new User("Henrik","Vandam","h@gmail.com"));
+        //User u1 = userRepository.save(new User("Eva","Pedersen","e@gmail.com"));
+       // User u2 = userRepository.save(new User("Frank","Luft","f@gmail.com"));
+        //User u3 = userRepository.save(new User("Gigolo","Celio","g@gmail.com"));
+    // User u4 = userRepository.save(new User("Henrik","Vandam","h@gmail.com"));
 
 
 

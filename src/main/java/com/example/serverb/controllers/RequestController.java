@@ -1,7 +1,9 @@
 package com.example.serverb.controllers;
 
+import com.example.serverb.entities.FriendList;
 import com.example.serverb.entities.Request;
 import com.example.serverb.entities.User;
+import com.example.serverb.services.FriendListService;
 import com.example.serverb.services.RequestService;
 import com.example.serverb.services.UserService;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -19,11 +21,13 @@ public class RequestController {
 
     RequestService requestService;
     UserService userService;
+    FriendListService fs;
     Map<String,String> newRequests = new HashMap<>();
 
-    public RequestController(RequestService requestService,UserService userService){
+    public RequestController(RequestService requestService,UserService userService, FriendListService fs){
         this.requestService = requestService;
         this.userService = userService;
+        this.fs = fs;
     }
 
     @GetMapping("/all")
@@ -52,7 +56,16 @@ public class RequestController {
         response.put("request deleted", Boolean.TRUE);
         return response;
     }
+@GetMapping("/acceptRequest/{currentId}/{requestId}")
+public String acceptRequest(@PathVariable int requestId,@PathVariable int currentId){
 
+        //FriendList fl = new FriendList()
+        //fs.saveInFriendList
+    System.out.println(requestId+"   "+currentId);
+
+        //requestService.deleteRequest(requestService.findRequestById(requestId).orElseThrow());
+return "redirect:/index";
+}
 
 
 

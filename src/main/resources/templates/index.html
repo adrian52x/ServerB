@@ -58,9 +58,9 @@
       <b><td th:text="${Request.getForeignUser()}"></td></b>
       <td th:text="${Request.getStatus()}"></td>
       <td><button class="btn btn-info"
-             th:href="@{/}">Accept</button></td>
+             th:href="@{/acceptRequest/{currentId}/{requestId}(requestId = ${Request.getId()})}">Accept</button></td>
       <td><button class="btn btn-danger"
-             th:href="@{/}">Reject</button></td>
+             th:href="@{/rejectRequest/{requestId}(requestId = ${Request.getId()})}">Reject</button></td>
     </tr>
 
     </tbody>
