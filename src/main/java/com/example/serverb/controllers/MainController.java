@@ -41,6 +41,7 @@ public class MainController {
         friendListService.saveInFriendList(new FriendList(request.getUser(),request.getUserEmail(),request.getForeignUserId(),request.getForeignUserEmail(),request.getSenderIp()));
         requestService.deleteRequest(request);
         requestList = requestService.findRequestsByUserId(currentId1);
+        currentId= currentId1;
 
 
 
@@ -51,6 +52,8 @@ public class MainController {
     public String declineRequest( @PathVariable int requestId){
         Request request = requestService.findRequestById(requestId).get();
         requestService.deleteRequest(request);
+        currentId= request.getUser().getId();
+
         return "redirect:/";
     }
     @GetMapping("/")
@@ -59,6 +62,13 @@ public class MainController {
         model.addAttribute("currentId1",currentId);
 
         return "index";
+    }
+    @GetMapping("/friendList/{currentId1}")
+    public String getFriendList(@PathVariable int currentId1, Model model){
+        List<FriendList> friendList = friendListService.findFriendListByUserId(currentId1);
+        model.addAttribute("friendList",friendList);
+        return "friendList";
+
     }
 
 }

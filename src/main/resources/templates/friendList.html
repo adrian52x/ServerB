@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FriendList </title>
+</head>
+<body>
+<table id="showTables" class="card-table table" style="color:black">
+    <h1>Your friends</h1>
+    <thead>
+    <tr>
+        <th >Friend's Id</th>
+        <th >Friend's Email</th>
+        <th> Friends's Host IP</th>
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="friend :  ${friendList}">
+        <b><td th:text="${friend.getForeignUserId()}"></td></b>
+        <b><td th:text="${friend.getForeignUserEmail()}"></td></b>
+
+        <td th:text="${friend.getForeignUserHost()}"></td>
+
+
+    </tr>
+
+    </tbody>
+</table>
+<button class="btn btn-info">
+    <a  th:href="@{/}">GoBack </a></button>
+</body>
+</html>
