@@ -68,6 +68,7 @@ public class RequestController {
         String friendhipRequest = req.get("request");
         String[] requestDetails = friendhipRequest.split("\\s+");
         // Checking the email address if exists in our database.
+        System.out.println(requestDetails[2]);
         User user = userService.findUserByEmail(requestDetails[4]);
         String foreignEmail = requestDetails[1];
 
