@@ -16,7 +16,7 @@ public class RequestService {
     public RequestService(RequestRepository requestRepository){
         this.requestRepository = requestRepository;
     }
-    ////////////
+
 
 
 
@@ -38,6 +38,10 @@ public class RequestService {
 
     public void deleteRequest(Request request){
         requestRepository.delete(request);
+    }
+
+    public void deleteRequestByRequestId(Request request){
+        requestRepository.deleteRequestById(request.getId());
     }
 
     public Request findRequestByUserAndForeignEmail(User user, String foreignUser){
