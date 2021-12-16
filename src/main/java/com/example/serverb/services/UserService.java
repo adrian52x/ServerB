@@ -10,12 +10,9 @@ public class UserService {
 
     UserRepository userRepository;
 
-    //Constructor
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    /////////////
-
 
     public Iterable<User> findAllUsers(){
         return userRepository.findAll();

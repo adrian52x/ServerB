@@ -5,8 +5,6 @@ import com.example.serverb.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 
-
-
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
@@ -17,7 +15,6 @@ public class UserController {
     public UserController(UserService userService){
         this.userService = userService;
     }
-
 
     @GetMapping("/all")
     public Iterable<User> getAllUsers(){

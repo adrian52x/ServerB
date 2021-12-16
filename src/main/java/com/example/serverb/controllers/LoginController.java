@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 public class LoginController {
 
     int currentUserId = 0;
     String currentUserEmail = "";
-
 
     UserService userService;
     RequestService requestService;
@@ -30,23 +29,10 @@ public class LoginController {
         this.requestService = requestService;
     }
 
-
     @GetMapping("/login")
     public String getLogin() {
         return "login";
     }
-
-/*
-    @GetMapping("/")
-    public String getIndex(Model model){
-        model.addAttribute("myRequestList",myRequests);
-        model.addAttribute("currentEmail","Email: "+currentUserEmail);
-        model.addAttribute("currentId","Id:"+currentUserId);
-        model.addAttribute("currentId1",currentUserId);
-        return "index";
-    }
-*/
-
 
     @PostMapping("/")
     public ModelAndView login(@RequestParam String email, Model model) {
@@ -60,22 +46,12 @@ public class LoginController {
             currentUserId = currentUser.getId();
             myRequests = requestService.findRequestsByUserId(currentUserId);
 
-
             model.addAttribute("myRequestList",myRequests);
             model.addAttribute("currentEmail","Email: "+email);
             model.addAttribute("currentId","Id:"+currentUserId);
             model.addAttribute("currentId1",currentUserId);
-
-
-
             return mv;
-
         }
-
-
-
         return loginMv;
     }
-
-
 }

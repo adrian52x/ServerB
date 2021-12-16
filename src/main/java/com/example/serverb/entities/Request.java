@@ -1,11 +1,10 @@
 package com.example.serverb.entities;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
+
 
 @Entity
 @NoArgsConstructor
@@ -27,8 +26,7 @@ public class Request {
     private String senderIp;
     private String receiverIp;
 
-    private String status = "pending";
-
+    private final String status = "pending";
 
     public Request(User user, String userEmail, int foreignUserId, String foreignUserEmail, String senderIp, String receiverIp) {
         this.user = user;
@@ -38,5 +36,4 @@ public class Request {
         this.senderIp = senderIp;
         this.receiverIp = receiverIp;
     }
-
 }

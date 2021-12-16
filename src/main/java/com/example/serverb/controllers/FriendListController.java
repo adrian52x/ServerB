@@ -1,11 +1,10 @@
 package com.example.serverb.controllers;
 
-
 import com.example.serverb.entities.FriendList;
 import com.example.serverb.services.FriendListService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @CrossOrigin
 @RestController
@@ -18,7 +17,6 @@ public class FriendListController {
         this.friendListService = friendListService;
     }
 
-
     @GetMapping("/{userId}")
     public List<FriendList> FriendListOfUser(@PathVariable int userId){
         return friendListService.findFriendListByUserId(userId);
@@ -28,7 +26,4 @@ public class FriendListController {
     public FriendList addRequest(@RequestBody FriendList friendList){
         return friendListService.saveInFriendList(friendList);
     }
-
-
-
 }

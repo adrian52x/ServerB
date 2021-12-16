@@ -4,21 +4,18 @@ import com.example.serverb.entities.Request;
 import com.example.serverb.entities.User;
 import com.example.serverb.repos.RequestRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class RequestService {
+
     RequestRepository requestRepository;
 
-    //Constructor
     public RequestService(RequestRepository requestRepository){
         this.requestRepository = requestRepository;
     }
-
-
-
 
     public Iterable<Request> findAllRequests(){
         return requestRepository.findAll();
@@ -40,11 +37,12 @@ public class RequestService {
         requestRepository.delete(request);
     }
 
-    public void deleteRequestByRequestId(int id){
-        requestRepository.deleteRequestById(id);
-    }
-
     public Request findRequestByUserAndForeignEmail(User user, String foreignUserEmail){
         return requestRepository.findRequestByUserAndForeignUserEmail(user,foreignUserEmail);
     }
+
+//    public void deleteRequestByRequestId(int id){
+//        requestRepository.deleteRequestById(id);
+//    }
+
 }
