@@ -53,6 +53,7 @@ public class MainController {
         Request request = requestService.findRequestById(requestId).get();
         requestService.deleteRequest(request);
         currentId= request.getUser().getId();
+        requestList = requestService.findRequestsByUserId(currentId);
 
         return "redirect:/";
     }
