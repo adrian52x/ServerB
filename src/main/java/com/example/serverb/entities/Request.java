@@ -19,15 +19,19 @@ public class Request {
 
     @ManyToOne
     private User user; // homeUser
+    private String userEmail; // homeUserEmail
 
-    private String foreignUser; //foreignUser email
+    private int foreignUserId; //foreignUser Id
+    private String foreignUserEmail; //foreignUser email
 
     private String status = "pending";
 
 
-    public Request(User user, String foreignUser){
+    public Request(User user, String userEmail, int foreignUserId, String foreignUserEmail){
         this.user = user;
-        this.foreignUser = foreignUser;
+        this.userEmail = userEmail;
+        this.foreignUserId = foreignUserId;
+        this.foreignUserEmail = foreignUserEmail;
     }
 
 }
