@@ -35,6 +35,8 @@ public class LoginController {
     public String getLogin() {
         return "login";
     }
+
+/*
     @GetMapping("/")
     public String getIndex(Model model){
         model.addAttribute("myRequestList",myRequests);
@@ -43,6 +45,7 @@ public class LoginController {
         model.addAttribute("currentId1",currentUserId);
         return "index";
     }
+*/
 
 
     @PostMapping("/")
@@ -56,7 +59,6 @@ public class LoginController {
         if (currentUser != null) {
             currentUserId = currentUser.getId();
             myRequests = requestService.findRequestsByUserId(currentUserId);
-
 
 
             model.addAttribute("myRequestList",myRequests);
@@ -74,4 +76,6 @@ public class LoginController {
 
         return loginMv;
     }
+
+
 }

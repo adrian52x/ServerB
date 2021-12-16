@@ -47,6 +47,7 @@
     <thead>
     <tr>
       <th >Email</th>
+      <th>Sender IP</th>
       <th >Status</th>
       <th >Action</th>
 
@@ -55,16 +56,20 @@
     </thead>
     <tbody>
     <tr th:each="Request :  ${myRequestList}">
-      <b><td th:text="${Request.getForeignUser()}"></td></b>
+      <b><td th:text="${Request.getForeignUserEmail()}"></td></b>
+      <b><td th:text="${Request.getSenderIp()}"></td></b>
+
       <td th:text="${Request.getStatus()}"></td>
       <td><button class="btn btn-info">
         <a  th:href="@{/acceptRequest/{currentId1}/{requestId} (currentId1=${currentId1}, requestId=${Request.getId()})}">Accept </a></button></td>
-      <td><button class="btn btn-danger"
-             th:href="@{/rejectRequest/{requestId}(requestId = ${Request.getId()})}">Reject</button></td>
+      <td><button class="btn btn-danger">
+        <a  th:href="@{/declineRequest/{requestId}(requestId = ${Request.getId()})}">Reject </a></button></td>
     </tr>
 
     </tbody>
   </table>
+
+
 </div>
 
 
