@@ -24,14 +24,19 @@ public class Request {
     private int foreignUserId; //foreignUser Id
     private String foreignUserEmail; //foreignUser email
 
+    private String senderIp;
+    private String receiverIp;
+
     private String status = "pending";
 
 
-    public Request(User user, String userEmail, int foreignUserId, String foreignUserEmail){
+    public Request(User user, String userEmail, int foreignUserId, String foreignUserEmail, String senderIp, String receiverIp) {
         this.user = user;
         this.userEmail = userEmail;
         this.foreignUserId = foreignUserId;
         this.foreignUserEmail = foreignUserEmail;
+        this.senderIp = senderIp;
+        this.receiverIp = receiverIp;
     }
 
 }
