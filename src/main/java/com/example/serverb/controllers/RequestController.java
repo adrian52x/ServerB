@@ -71,11 +71,16 @@ public class RequestController {
         System.out.println(requestDetails[2]);
         User user = userService.findUserByEmail(requestDetails[4]);
         String foreignEmail = requestDetails[1];
+        int foreignId = Integer.parseInt(requestDetails[2]);
+        String senderIp = requestDetails[3] ;
+        String receiverIp = requestDetails[5];
+
+
 
 
         if(user!= null){
             // create request in DB
-            Request rq = new Request(user, foreignEmail);
+            Request rq = new Request(user,user.getEmail(),foreignId,foreignEmail,senderIp,receiverIp);
 
             if(requestService.findRequestByUserAndForeignEmail(user,foreignEmail)==null){
                 requestService.saveRequest(rq);
