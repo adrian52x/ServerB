@@ -26,4 +26,11 @@ public class FriendListService {
     }
 
 
+    public boolean notFriend(String userEmail,String foreignUserEmail){
+        if(friendListRepository.findFriendListByUserEmailAndForeignUserEmail(userEmail,foreignUserEmail)==null) {
+            return true;
+        }
+        return false;
+    }
+
 }

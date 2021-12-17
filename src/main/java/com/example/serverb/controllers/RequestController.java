@@ -54,20 +54,21 @@ public class RequestController {
         String receiverIp = requestDetails[7];
 
 
-        // Checking the email address if exists in our database.
+        // Checking if user exists by email
 
-        if(user!= null){
+        if(user!= null && fs.notFriend(user.getEmail(),foreignEmail)){
             // create request in DB
             Request rq = new Request(user,user.getEmail(),foreignId,foreignEmail,senderIp,receiverIp);
 
             if(requestService.findRequestByUserAndForeignEmail(user,foreignEmail)==null){
                 requestService.saveRequest(rq);
-                return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
+                return ResponseEntity.ok("TRUE Request created"+req.get("request")+" On "+new Date());
             }
 
 
         }
-            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
+        return ResponseEntity.ok("FALSE Request was not created [Maybe already friends OR active request already exists");
+
 
 
     }
@@ -89,7 +90,7 @@ public class RequestController {
         model.addAttribute("userEmail", userEmail);
         System.out.println(response.getBody());
 
-        return "Your request has been received.";
+        return "Your request has been sent";
 
     }
 
