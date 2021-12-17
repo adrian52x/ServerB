@@ -36,16 +36,6 @@ public class LoginController {
         return "login";
     }
 
-/*
-    @GetMapping("/")
-    public String getIndex(Model model){
-        model.addAttribute("myRequestList",myRequests);
-        model.addAttribute("currentEmail","Email: "+currentUserEmail);
-        model.addAttribute("currentId","Id:"+currentUserId);
-        model.addAttribute("currentId1",currentUserId);
-        return "index";
-    }
-*/
 
 
     @PostMapping("/")
@@ -62,8 +52,8 @@ public class LoginController {
 
 
             model.addAttribute("myRequestList",myRequests);
-            model.addAttribute("currentEmail","Email: "+email);
-            model.addAttribute("currentId","Id:"+currentUserId);
+            model.addAttribute("currentEmail","Email: " +email);
+            model.addAttribute("currentId","ID: " +currentUserId);
             model.addAttribute("currentId1",currentUserId);
 
 

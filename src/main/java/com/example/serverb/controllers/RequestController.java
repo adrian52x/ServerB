@@ -9,7 +9,9 @@ import com.example.serverb.services.UserService;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,8 +20,12 @@ import java.util.Map;
 
 
 @RestController
-@Controller
 public class RequestController {
+
+    private RestTemplate restTemplate = new RestTemplate();
+
+    final String homeIp = "http://localhost:9091";
+    final String foreignIp = "http://localhost:8080";
 
     RequestService requestService;
     UserService userService;
@@ -31,6 +37,92 @@ public class RequestController {
         this.userService = userService;
         this.fs = fs;
     }
+
+
+
+    @PostMapping("/friendship")
+    public ResponseEntity<String> postGreeting(@RequestBody Map<String,String> req) {
+
+        String friendshipRequest = req.get("request");
+        String[] requestDetails = friendshipRequest.split("\\s+");
+
+        System.out.println(friendshipRequest);
+        User user = userService.findUserByEmail(requestDetails[6]);
+        String foreignEmail = requestDetails[2];
+        int foreignId = Integer.parseInt(requestDetails[4]);
+        String senderIp = requestDetails[5] ;
+        String receiverIp = requestDetails[7];
+
+
+        // Checking the email address if exists in our database.
+
+        if(user!= null){
+            // create request in DB
+            Request rq = new Request(user,user.getEmail(),foreignId,foreignEmail,senderIp,receiverIp);
+
+            if(requestService.findRequestByUserAndForeignEmail(user,foreignEmail)==null){
+                requestService.saveRequest(rq);
+                return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
+            }
+
+
+        }
+            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
+
+
+    }
+
+
+    @PostMapping("/sendFriendRequest")
+    public String sendGreeting(@RequestParam String f_email,@RequestParam String currentemail,@RequestParam String userid, Model model) {
+        System.out.println(f_email);
+        String foreignEmail = f_email;
+        String currentUserId = userid;
+        String receiverIP = foreignIp + "/friendship";
+        String userEmail = currentemail;
+        Map<String, String> reqMap = new HashMap<>();
+        String method = "request";
+        String requestForFriendship = "{" + method + ": " + userEmail +" "+currentUserId+" "+ homeIp + " " + foreignEmail + " " + foreignIp + " " + "v1" + "}";
+        reqMap.put("request", requestForFriendship);
+        ResponseEntity response = restTemplate.postForEntity(receiverIP, reqMap, String.class);
+        model.addAttribute("request", response.getBody());
+        model.addAttribute("userEmail", userEmail);
+        System.out.println(response.getBody());
+
+        return "Your request has been received.";
+
+    }
+
+
+    @PostMapping("/response")
+    public ResponseEntity<String> getConfirmation(@RequestBody Map<String,String> req) {
+
+        String responseFromRequest = req.get("confirmation");
+        String[] responseDetails = responseFromRequest.split("\\s+");
+        //getting all the values from response in variables
+        int userId = Integer.parseInt(responseDetails[2]);
+        String userEmail = responseDetails[3];
+        int foreignUserId = Integer.parseInt(responseDetails[4]);
+        String foreignUserEmail = responseDetails[5];
+        String foreignUserHost = responseDetails[6];
+
+        User user = userService.findUserById(userId);
+        fs.saveInFriendList(new FriendList(user,userEmail,foreignUserId,foreignUserEmail,foreignUserHost));
+
+        System.out.println(responseFromRequest);
+
+
+        return ResponseEntity.ok("Confirmed." +req.get("confirmation")+new Date());
+
+
+    }
+
+
+
+
+
+
+    //Endpoints
 
     @GetMapping("/all")
     public Iterable<Request> fetchAllRequests(){
@@ -62,41 +154,4 @@ public class RequestController {
 
 
 
-    @PostMapping("/friendship")
-    public ResponseEntity<String> postGreeting(@RequestBody Map<String,String> req) {
-        //System.out.println("request: " + req.get("request"));
-        String friendhipRequest = req.get("request");
-        String[] requestDetails = friendhipRequest.split("\\s+");
-        // Checking the email address if exists in our database.
-        System.out.println(requestDetails[2]);
-        User user = userService.findUserByEmail(requestDetails[4]);
-        String foreignEmail = requestDetails[1];
-        int foreignId = Integer.parseInt(requestDetails[2]);
-        String senderIp = requestDetails[3] ;
-        String receiverIp = requestDetails[5];
-
-
-
-
-        if(user!= null){
-            // create request in DB
-            Request rq = new Request(user,user.getEmail(),foreignId,foreignEmail,senderIp,receiverIp);
-
-            if(requestService.findRequestByUserAndForeignEmail(user,foreignEmail)==null){
-                requestService.saveRequest(rq);
-                return ResponseEntity.ok("TRUE Request created in server B."+req.get("request")+" On "+new Date());
-            }
-
-
-        }
-            return ResponseEntity.ok("User does not exist in Server B." +req.get("request"));
-
-
-
-        //System.out.println(friendhipRequest);
-        //newRequests.put(req.get("request"),"pending");
-
-        //return ResponseEntity.ok("Request received from "+req.get("request")+" On "+new Date());
-
-    }
 }
