@@ -8,6 +8,7 @@ import com.example.serverb.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@CrossOrigin
 @Controller
 public class MainController {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    final String foreignIp = "34.235.165.180";
-    final String homeIp = "54.210.22.88";
+    //final String foreignIp = "34.235.165.180";
+    //final String homeIp = "54.210.22.88";
+
+    final String homeIp = "http://localhost:9091/";
+    final String foreignIp = "http://localhost:8080/";
 
 
     List<Request> requestList = new ArrayList<>();
